@@ -1,1 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-black text-white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rest In Internet</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+    }
+    #pixelGrid {
+      display: grid;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: translate(0, 0);
+      user-select: none;
+      cursor: grab;
+      transform-origin: top left;
+    }
+    .cell {
+      min-width: 24px;
+      min-height: 24px;
+      margin: 8px;
+      background-color: #4a4a4a;
+      border-radius: 6px;
+      position: relative;
+    }
+    .cell:hover::after {
+      content: attr(data-coords);
+      position: absolute;
+      top: -36px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #444;
+      color: #fff;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      white-space: nowrap;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body class="font-sans overflow-hidden">
+  <!-- Hero Section -->
+  <section class="h-screen flex flex-col items-center justify-center px-4 text-center" id="hero">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-4 font-serif">
+      Rest In Internet
+    </h1>
+    <p class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6">
+      Riserva il tuo spazio eterno su Internet — un pixel alla volta.
+    </p>
+    <button id="claimPixelBtn" class="bg-purple-600 hover:bg-purple-700 transition px-6 py-3 rounded-xl text-lg font-semibold">
+      Claim Your Pixel
+    </button>
+  </section>
 
+  <!-- Mappa Interattiva -->
+  <section id="mapSection" class="hidden flex flex-col items-center px-4 w-full h-auto overflow-hidden relative">
+    <div id="pixelGridContainer" class="relative w-full h-[80vh] overflow-hidden touch-none">
+      <div id="pixelGrid"></div>
+    </div>
+  </section>
+
+  <!-- Live Activity -->
+  <section id="liveActivity" class="hidden w-full max-w-3xl mx-auto py-6 px-4 bg-black bg-opacity-70 backdrop-blur-sm">
+    <h3 class="text-xl font-semibold mb-2">Live Activity</h3>
+    <div class="space-y-2 text-sm text-gray-300">
+      <div class="bg-gray-800 rounded px-3 py-2">💀 Josh is buying a pixel...</div>
+      <div class="bg-gray-800 rounded px-3 py-2">👻 Here lies BigBrain999. Thought too hard.</div>
+      <div class="bg-gray-800 rounded px-3 py-2">💔 Pixel 403,208. Taken too soon.</div>
+    </div>
+  </section>
+
+  <script>
+    const gridContainer = document.getElementById('pixelGrid');
+    const claimBtn = document.getElementById('claimPixelBtn');
+    const hero = document.getElementById('hero');
+    const mapSection = document.getElementById('mapSection');
+    const liveActivity = document.getElementById('liveActivity');
+    const pixelGridContainer = document.getElementById('pixelGridContainer');
+
+    let isPanning = false;
+    let startX, startY, initialX, initialY;
+    let scale = 1;
+
+    pixelGridContainer.addEventListener('mousedown', (e) => {
+      isPanning = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      const transform = getComputedStyle(gridContainer).transform;
+      if (transform !== 'none') {
+        const match = transform.match(/matrix\(([^,]+),[^,]+,[^,]+,[^,]+,([^,]+),([^\)]+)\)/);
+        if (match) {
+          initialX = parseFloat(match[2]);
+          initialY = parseFloat(match[3]);
+        }
+      } else {
+        initialX = 0;
+        initialY = 0;
+      }
+    });
+
+    window.addEventListener('mouseup', () => isPanning = false);
+    window.addEventListener('mousemove', (e) => {
+      if (!isPanning) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      gridContainer.style.transform = `translate(${initialX + dx}px, ${initialY + dy}px) scale(${scale})`;
+    });
+
+    pixelGridContainer.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const zoomSpeed = 0.1;
+      scale += e.deltaY > 0 ? -zoomSpeed : zoomSpeed;
+      scale = Math.min(Math.max(0.5, scale), 3);
+      const transform = getComputedStyle(gridContainer).transform;
+      let x = 0, y = 0;
+      if (transform !== 'none') {
+        const match = transform.match(/matrix\(([^,]+),[^,]+,[^,]+,[^,]+,([^,]+),([^\)]+)\)/);
+        if (match) {
+          x = parseFloat(match[2]);
+          y = parseFloat(match[3]);
+        }
+      }
+      gridContainer.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+    }, { passive: false });
+
+    claimBtn.addEventListener('click', () => {
+      hero.classList.add('hidden');
+      mapSection.classList.remove('hidden');
+      liveActivity.classList.remove('hidden');
+      renderGrid();
+    });
+
+    function renderGrid() {
+      const container = document.getElementById('pixelGridContainer');
+      const cellMinSize = 24;
+      const cellMargin = 16;
+
+      const containerWidth = container.clientWidth;
+      const containerHeight = container.clientHeight;
+
+      const cols = Math.floor(containerWidth / (cellMinSize + cellMargin));
+      const rows = Math.floor(containerHeight / (cellMinSize + cellMargin));
+
+      gridContainer.innerHTML = '';
+      gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${cellMinSize}px)`;
+      gridContainer.style.gridTemplateRows = `repeat(${rows}, ${cellMinSize}px)`;
+
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          const cell = document.createElement('div');
+          cell.classList.add('cell');
+          cell.dataset.coords = `(${x},${y})`;
+          cell.dataset.claimed = Math.random() < 0.1 ? 'true' : 'false'; // 10% random claimed
+
+          cell.addEventListener('click', () => {
+            if (cell.dataset.claimed === 'true') {
+              alert(`Qui giace Pixel (${x}, ${y}): "Epitaph goes here."`);
+            } else {
+              alert(`Procedi con l'acquisto della cella (${x}, ${y})`);
+            }
+          });
+
+          gridContainer.appendChild(cell);
+        }
+      }
+    }
+
+    window.addEventListener('resize', () => {
+      if (!hero.classList.contains('hidden')) return;
+      renderGrid();
+    });
+
+    window.addEventListener('load', () => {
+      if (!hero.classList.contains('hidden')) return;
+      renderGrid();
+    });
+  </script>
+</body>
+</html>
