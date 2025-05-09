@@ -1,16 +1,92 @@
-
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="bg-black text-white">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- displays site properly based on user's device -->
-  <!-- link rel="stylesheet" href="index.css" -->
+  <title>Rest In Internet</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .pixel {
+      position: relative;
+    }
+    .tooltip {
+      display: none;
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0,0,0,0.8);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      z-index: 10;
+    }
+    .pixel:hover .tooltip {
+      display: block;
+    }
+  </style>
 </head>
+<body class="font-sans">
+  <!-- Hero Section -->
+  <section class="min-h-screen flex flex-col items-center justify-center px-4 text-center">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-4 font-serif">
+      Rest In Internet
+    </h1>
+    <p class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6">
+      Riserva il tuo spazio eterno su Internet — un pixel alla volta.
+    </p>
+    <button id="claimPixelBtn" class="bg-purple-600 hover:bg-purple-700 transition px-6 py-3 rounded-xl text-lg font-semibold">
+      Claim Your Pixel
+    </button>
+  </section>
 
-<body>
-  <div><p>Muoviti a fare Barb1</p></div>
+  <!-- Mappa Interattiva -->
+  <section id="mapSection" class="hidden flex flex-col items-center py-10 px-4">
+    <h2 class="text-2xl font-bold mb-4">Mappa Interattiva</h2>
+    <div id="pixelGrid" class="bg-gray-800 w-full max-w-3xl aspect-square grid grid-cols-10 gap-1 overflow-auto">
+      <!-- Pixel grid will be generated here -->
+    </div>
+  </section>
+
+  <!-- Live Activity -->
+  <section class="w-full max-w-3xl mx-auto mt-10 px-4">
+    <h3 class="text-xl font-semibold mb-2">Live Activity</h3>
+    <div class="space-y-2 text-sm text-gray-300">
+      <div class="bg-gray-800 rounded px-3 py-2">💀 Josh is buying a pixel...</div>
+      <div class="bg-gray-800 rounded px-3 py-2">👻 Here lies BigBrain999. Thought too hard.</div>
+      <div class="bg-gray-800 rounded px-3 py-2">💔 Pixel 403,208. Taken too soon.</div>
+    </div>
+  </section>
+
+  <script>
+    const btn = document.getElementById("claimPixelBtn")
+    const hero = document.querySelector("section")
+    const mapSection = document.getElementById("mapSection")
+    const grid = document.getElementById("pixelGrid")
+
+    // Transition from hero to map
+    btn.addEventListener("click", () => {
+      hero.classList.add("hidden")
+      mapSection.classList.remove("hidden")
+      mapSection.scrollIntoView({ behavior: 'smooth' })
+    })
+
+    // Generate 100 pixels with tooltip
+    for (let y = 0; y < 10; y++) {
+      for (let x = 0; x < 10; x++) {
+        const pixel = document.createElement('div')
+        pixel.className = 'bg-gray-700 w-full aspect-square hover:bg-purple-500 transition pixel relative'
+
+        const tooltip = document.createElement('div')
+        tooltip.className = 'tooltip'
+        tooltip.innerText = `Coordinate: (${x}, ${y})`
+
+        pixel.appendChild(tooltip)
+        grid.appendChild(pixel)
+      }
+    }
+  </script>
 </body>
-
 </html>
