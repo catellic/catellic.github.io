@@ -6,6 +6,9 @@
   <title>Rest In Internet</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    body {
+      overflow-x: hidden;
+    }
     .pixel {
       position: relative;
     }
@@ -45,7 +48,7 @@
   <!-- Mappa Interattiva -->
   <section id="mapSection" class="hidden flex flex-col items-center py-10 px-4">
     <h2 class="text-2xl font-bold mb-4">Mappa Interattiva</h2>
-    <div id="pixelGrid" class="bg-gray-800 w-full max-w-3xl aspect-square grid grid-cols-10 gap-1 overflow-auto">
+    <div id="pixelGrid" class="bg-gray-800 w-full max-w-3xl aspect-square grid grid-cols-10 gap-1 overflow-y-auto box-border">
       <!-- Pixel grid will be generated here -->
     </div>
   </section>
@@ -82,6 +85,11 @@
         const tooltip = document.createElement('div')
         tooltip.className = 'tooltip'
         tooltip.innerText = `Coordinate: (${x}, ${y})`
+
+        if (y === 0) {
+          tooltip.style.bottom = 'auto';
+          tooltip.style.top = '100%';
+        }
 
         pixel.appendChild(tooltip)
         grid.appendChild(pixel)
