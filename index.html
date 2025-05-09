@@ -1,1 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-black text-white">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rest In Internet</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="font-sans">
+  <!-- Hero Section -->
+  <section class="min-h-screen flex flex-col items-center justify-center px-4 text-center" id="hero">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-4 font-serif">
+      Rest In Internet
+    </h1>
+    <p class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-6">
+      Riserva il tuo spazio eterno su Internet — un pixel alla volta.
+    </p>
+    <button id="claimPixelBtn" class="bg-purple-600 hover:bg-purple-700 transition px-6 py-3 rounded-xl text-lg font-semibold">
+      Claim Your Pixel
+    </button>
+  </section>
+
+  <!-- Mappa Interattiva -->
+  <section id="mapSection" class="hidden flex flex-col items-center py-10 px-4 w-full h-screen">
+    <h2 class="text-2xl font-bold mb-4">Mappa Interattiva</h2>
+    <div id="pixelGridContainer" class="relative w-full max-w-full h-[80vh] overflow-hidden touch-none">
+      <div id="pixelGrid" class="relative w-full h-full"></div>
+    </div>
+  </section>
+
+  <!-- Live Activity -->
+  <section class="w-full max-w-3xl mx-auto mt-10 px-4">
+    <h3 class="text-xl font-semibold mb-2">Live Activity</h3>
+    <div class="space-y-2 text-sm text-gray-300">
+      <div class="bg-gray-800 rounded px-3 py-2">💀 Josh is buying a pixel...</div>
+      <div class="bg-gray-800 rounded px-3 py-2">👻 Here lies BigBrain999. Thought too hard.</div>
+      <div class="bg-gray-800 rounded px-3 py-2">💔 Pixel 403,208. Taken too soon.</div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
 
