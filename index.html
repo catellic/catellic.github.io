@@ -6,8 +6,9 @@
   <title>Rest In Internet</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
+    html, body {
       overflow-x: hidden;
+      overflow-y: auto;
     }
     .pixel {
       position: relative;
@@ -24,14 +25,15 @@
       border-radius: 4px;
       font-size: 0.75rem;
       white-space: nowrap;
-      z-index: 10;
+      z-index: 50;
+      pointer-events: none;
     }
     .pixel:hover .tooltip {
       display: block;
     }
   </style>
 </head>
-<body class="font-sans">
+<body class="font-sans overflow-hidden">
   <!-- Hero Section -->
   <section class="min-h-screen flex flex-col items-center justify-center px-4 text-center">
     <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-4 font-serif">
@@ -48,7 +50,7 @@
   <!-- Mappa Interattiva -->
   <section id="mapSection" class="hidden flex flex-col items-center py-10 px-4">
     <h2 class="text-2xl font-bold mb-4">Mappa Interattiva</h2>
-    <div id="pixelGrid" class="bg-gray-800 w-full max-w-3xl aspect-square grid grid-cols-10 gap-1 overflow-y-auto box-border">
+    <div id="pixelGrid" class="bg-gray-800 w-full max-w-3xl aspect-square grid grid-cols-10 gap-1 box-border overflow-hidden relative">
       <!-- Pixel grid will be generated here -->
     </div>
   </section>
@@ -80,7 +82,7 @@
     for (let y = 0; y < 10; y++) {
       for (let x = 0; x < 10; x++) {
         const pixel = document.createElement('div')
-        pixel.className = 'bg-gray-700 w-full aspect-square hover:bg-purple-500 transition pixel relative'
+        pixel.className = 'bg-gray-700 w-full aspect-square hover:bg-purple-500 transition pixel relative overflow-visible'
 
         const tooltip = document.createElement('div')
         tooltip.className = 'tooltip'
