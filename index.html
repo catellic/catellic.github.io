@@ -1,60 +1,29 @@
 <!DOCTYPE html>
 <html lang="en" class="bg-black text-white">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rest In Internet</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
-    html, body {
-      margin: 0; padding: 0; height: 100%; overflow: hidden;
-      font-family: 'Inter', sans-serif;
-    }
-    .title-gothic { font-family: 'UnifrakturCook', cursive; }
-    /* Grid */
-    #pixelGrid {
-      display: grid;
-      position: absolute; top: 0; left: 0;
-      transform-origin: top left;
-      gap: 8px;
-      background: #111;
-    }
-    .cell {
-      width: 20px; height: 20px;
-      background: #222; border-radius: 4px;
-    }
-    /* Tooltip */
-    .tooltip-large {
-      position: fixed; background: #222; color: #fff;
-      padding: 8px 12px; border-radius: 4px;
-      z-index: 10000; white-space: pre-line;
-      pointer-events: none;
-      max-width: 200px;
-      text-align: center;
-    }
-  </style>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body class="overflow-hidden">
-  <!-- Top Banner -->
   <div id="topTitle" class="w-full text-center py-12 title-gothic text-5xl hidden">Rest in Internet</div>
 
-  <!-- Hero -->
+  <!-- Hero Section -->
   <section id="hero" class="h-screen flex flex-col items-center justify-center px-8 space-y-4 text-center">
     <h1 class="title-gothic text-[4rem] leading-tight">Rest In Internet</h1>
-    <p class="text-xl text-gray-300 max-w-xl mx-auto">Claim your little space in Internet - for Eternity.</p>
+    <p class="text-xl text-gray-300 max-w-xl mx-auto">Your place in Internet - for Eternity.</p>
     <button id="claimPixelBtn" class="bg-purple-600 hover:bg-purple-700 px-6 py-3 rounded-xl text-lg font-semibold">Claim Your Pixel</button>
   </section>
 
-  <!-- Map + Live wrapper with no top margin -->
+  <!-- Map and Live Activity -->
   <div id="mapWrapper" class="hidden relative mb-[100px] mx-[100px] w-[calc(100%-200px)] h-[calc(100%-100px)]">
-    <!-- Map -->
     <section id="mapSection" class="relative w-full h-full overflow-hidden bg-black rounded-lg">
       <div id="pixelGridContainer" class="absolute inset-0 p-24 touch-none">
         <div id="pixelGrid"></div>
       </div>
     </section>
-    <!-- Live Activity centered overlay bottom center -->
     <section id="liveActivity" class="hidden fixed bottom-[100px] left-1/2 transform -translate-x-1/2 bg-black bg-opacity-70 backdrop-blur-sm text-gray-200 p-4 rounded-lg space-y-2 text-sm z-50 text-center max-w-md">
       <div>💀 Josh is buying a pixel...</div>
       <div>👻 Here lies BigBrain999. Thought too hard.</div>
@@ -64,104 +33,6 @@
     </section>
   </div>
 
-  <script>
-    const hero = document.getElementById('hero'),
-          claimBtn = document.getElementById('claimPixelBtn'),
-          mapWrapper = document.getElementById('mapWrapper'),
-          liveActivity = document.getElementById('liveActivity'),
-          grid = document.getElementById('pixelGrid'),
-          container = document.getElementById('pixelGridContainer'),
-          topTitle = document.getElementById('topTitle');
-
-    let isPanning = false, isDragging = false;
-    let startX = 0, startY = 0, offsetX = 0, offsetY = 0, scale = 1;
-
-    claimBtn.addEventListener('click', () => {
-      hero.classList.add('hidden');
-      mapWrapper.classList.remove('hidden');
-      liveActivity.classList.remove('hidden');
-      topTitle.classList.remove('hidden');
-      setTimeout(() => {
-        renderGrid();
-        updateTransform();
-      }, 0);
-    });
-
-    function renderGrid() {
-      const size = 20, cols = 100, rows = 100;
-      grid.innerHTML = '';
-      grid.style.gridTemplateColumns = `repeat(${cols},${size}px)`;
-      grid.style.gridTemplateRows = `repeat(${rows},${size}px)`;
-      for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
-        const c = document.createElement('div');
-        c.className = 'cell';
-        c.dataset.coords = `(${x},${y})`;
-        c.addEventListener('click', e => { if (isDragging) return; showTooltip(c); });
-        grid.appendChild(c);
-      }
-    }
-
-    function updateTransform() {
-      grid.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
-    }
-
-    function showTooltip(cell) {
-      document.querySelectorAll('.tooltip-large').forEach(t => t.remove());
-      const rect = cell.getBoundingClientRect();
-      const tip = document.createElement('div');
-      tip.className = 'tooltip-large';
-      tip.textContent = `Pixel ${cell.dataset.coords}`;
-      tip.style.left = `${rect.left + rect.width / 2}px`;
-      tip.style.top = `${rect.top - 30}px`;
-      document.body.appendChild(tip);
-      setTimeout(() => tip.remove(), 2000);
-    }
-
-    container.addEventListener('mousedown', e => {
-      isPanning = true; isDragging = false;
-      startX = e.clientX; startY = e.clientY;
-    });
-
-    window.addEventListener('mouseup', () => {
-      if (isDragging) snapBack();
-      isPanning = false;
-    });
-
-    window.addEventListener('mousemove', e => {
-      if (!isPanning) return;
-      const dx = e.clientX - startX, dy = e.clientY - startY;
-      if (Math.hypot(dx, dy) > 5) isDragging = true;
-      offsetX += dx;
-      offsetY += dy;
-      startX = e.clientX;
-      startY = e.clientY;
-      updateTransform();
-    });
-
-    function snapBack() {
-      const cb = container.getBoundingClientRect();
-      const gw = grid.offsetWidth * scale;
-      const gh = grid.offsetHeight * scale;
-      offsetX = Math.min(0, Math.max(cb.width - gw, offsetX));
-      offsetY = Math.min(0, Math.max(cb.height - gh, offsetY));
-      grid.style.transition = 'transform .3s ease-out';
-      updateTransform();
-      setTimeout(() => grid.style.transition = '', 300);
-    }
-
-    container.addEventListener('wheel', e => {
-      e.preventDefault();
-      const minScale = Math.max(container.clientWidth / grid.offsetWidth, container.clientHeight / grid.offsetHeight, 1);
-      scale += e.deltaY > 0 ? -0.1 : 0.1;
-      scale = Math.min(3, Math.max(minScale, scale));
-      updateTransform();
-    }, { passive: false });
-
-    window.addEventListener('resize', () => {
-      if (!hero.classList.contains('hidden')) return;
-      renderGrid();
-      updateTransform();
-    });
-  </script>
+  <script src="js/main.js"></script>
 </body>
 </html>

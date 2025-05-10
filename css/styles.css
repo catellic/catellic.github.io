@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+.title-gothic {
+  font-family: 'UnifrakturCook', cursive;
+}
+
+/* Grid */
+#pixelGrid {
+  display: grid;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: top left;
+  gap: 8px;
+  background: #111;
+}
+
+.cell {
+  width: 20px;
+  height: 20px;
+  background: #222;
+  border-radius: 4px;
+}
+
+/* Tooltip */
+.tooltip-large {
+  position: fixed;
+  background: #222;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  z-index: 10000;
+  white-space: pre-line;
+  pointer-events: none;
+  max-width: 200px;
+  text-align: center;
+}
