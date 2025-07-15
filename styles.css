@@ -1,0 +1,94 @@
+:root {
+  --custom-white: #fbf3f2;
+  --custom-orange: #fa991c;
+  --custom-dark-orange: #fe7235;
+  --custom-teal: #1c768f;
+  --custom-dark-teal: #032539;
+}
+
+* {
+  text-decoration: none;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: var(--custom-dark-teal);
+  color: var(--custom-white);
+  width: 100vw;
+  height: 100vh;
+}
+
+.title {
+  font-weight: 900;
+  font-size: 3rem;
+  padding: 50px;
+}
+
+.projects-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 75vw;
+  height: 75vh;
+  gap: 35px;
+  padding: 50px;
+}
+
+.projects {
+  display: flex;
+  flex-grow: 1;
+}
+
+
+.btn {
+  display: flex;
+  flex-grow: 1;
+
+  background-color: var(--custom-white);
+  color: var(--custom-dark-teal);
+  font-size: 20px;
+  font-weight: 100;
+  padding: 10px;
+  /* border: 1px solid var(--custom-white); */
+  border-radius: 10px;
+
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--custom-dark-orange);
+  transform: scale(1.1);
+}
+
+.btn:active {
+  transform: scale(0.90); /* Effetto di pressione */
+  background-color: var(--custom-teal);
+  color: var(--custom-white);
+}
+
+#dev,
+#qa,
+.social-networks {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.social-networks .btn {
+  background-color: var(--custom-white);
+  color: var(--custom-teal);
+  font-weight: 600;
+}
+
+.social-networks .btn:active {
+    background-color: var(--custom-teal);
+    color: var(--custom-white);
+}
