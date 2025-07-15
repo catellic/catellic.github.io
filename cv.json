@@ -1,0 +1,132 @@
+{
+  "personal_info": {
+    "name": "Christian Catelli",
+    "dob": "1997-02-21",
+    "gender": "Male",
+    "nationality": "Italian",
+    "address": "28066, Galliate (NO), Italy",
+    "email": "c.catelli@icloud.com",
+    "phone": "+39 3396791811",
+    "linkedin": "https://www.linkedin.com/in/christian-catelli-695b89177/"
+  },
+  "work_experience": [
+    {
+      "title": "Agile QA Lead",
+      "company": "Kineton s.r.l.",
+      "location": "Milano, Italy",
+      "start": "2024-10",
+      "end": "Present",
+      "description": [
+        "Management and coordination of QA processes for Web and HbbTv products.",
+        "Team coordination and QA capacity management",
+        "Requirements definition, timeline planning and critical issue resolution",
+        "Improved validation process and test automation"
+      ]
+    },
+    {
+      "title": "Agile QA Team Lead",
+      "company": "Kineton s.r.l.",
+      "location": "Milano, Italy",
+      "start": "2023-08",
+      "end": "2024-10",
+      "description": [
+        "QA team lead of manual and automated test for Web and Mobile apps.",
+        "Process optimization and reduction of validation time.",
+        "Test Automation and CI/CD pipeline improvement"
+      ]
+    },
+    {
+      "title": "Agile Quality Assurance",
+      "company": "Kineton s.r.l.",
+      "location": "Milano, Italy",
+      "start": "2019-11",
+      "end": "2023-08",
+      "description": [
+        "Web and Mobile testing in Agile environment for selfcare application (Web and Mobile).",
+        "Automated API testing using Postman and Cypress integrated with Jenkins",
+        "Mobile testing using Browserstack"
+      ]
+    },
+    {
+      "title": "Test Engineer",
+      "company": "Kineton s.r.l.",
+      "location": "Napoli, Italy",
+      "start": "2019-09",
+      "end": "2019-11",
+      "description": [
+        "Creation of custom Selenium-based automation framework",
+        "Functional testing and requirement validation",
+        "Client communication (Ireland)"
+      ]
+    },
+    {
+      "title": "Intern",
+      "company": "Kineton s.r.l.",
+      "location": "Napoli, Italy",
+      "start": "2019-06",
+      "end": "2019-09",
+      "description": [
+        "Exploratory and functional testing",
+        "Pre-production validation"
+      ]
+    },
+    {
+      "title": "Social Media Manager",
+      "company": "Unina Corse – Federico II University",
+      "location": "Napoli, Italy",
+      "start": "2017-08",
+      "end": "2018-05",
+      "description": [
+        "Managed social media strategy and content for the team"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "Liceo Scientifico High School Diploma",
+      "school": "ISIS Giancarlo Siani",
+      "location": "Casalnuovo di Napoli, Italy",
+      "start": "2011",
+      "end": "2016",
+      "grade": "87/100"
+    }
+  ],
+  "languages": {
+    "italian": "Native",
+    "english": {
+      "listening": "C1",
+      "reading": "C1",
+      "writing": "C1",
+      "speaking": "C1"
+    }
+  },
+  "certifications": [
+    {
+      "title": "ISTQB Tester Foundation Level",
+      "issued": "2022-11-11",
+      "id": "CTIT-22-19635"
+    },
+    {
+      "title": "Google IT Automation with Python",
+      "issued": "2021-11-30",
+      "credential_id": "J6CS9WVRGYM6",
+      "link": "https://www.coursera.org/account/accomplishments/specialization/certificate/J6CS9WVRGYM6"
+    },
+    {
+      "title": "Responsive Web Design",
+      "issued": "2021-12",
+      "issuer": "FreeCodeCamp",
+      "link": "https://freecodecamp.org/certification/fccfb49752c-31cb-4c94-9a26-59d629db92c0/responsive-web-design"
+    },
+    {
+      "title": "Grade 7 - Trinity College London",
+      "issued": "2015-04"
+    },
+    {
+      "title": "Mindful Effective Learning",
+      "issued": "2016",
+      "issuer": "Prof.ssa Lorenza Corti"
+    }
+  ],
+  "gdpr": "I hereby authorize the use of my personal data in accordance to GDPR 679/16"
+}
