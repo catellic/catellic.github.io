@@ -4,91 +4,180 @@
   --custom-dark-orange: #fe7235;
   --custom-teal: #1c768f;
   --custom-dark-teal: #032539;
+
+  /* Aggiunte unità dinamiche e variabili riutilizzabili: 1 rem = 16px altrimenti mi dimentico*/
+  --space-xl: 3rem;
+  /* spaziatura grande */
+  --space-lg: 2rem;
+  /* spaziatura media-grande */
+  --space-md: 1.25rem;
+  /* spaziatura media */
+  --space-sm: 0.75rem;
+  /* spaziatura piccola */
+
+  --radius: 0.625rem;
+  /* 10px border-radius */
+  --font-lg: clamp(1.5rem, 2vw, 2rem); /* clamp serve a definire la forbice di valori entro cui muoversi, responsive senza media query */
+  /* dimensione titolo adattiva */
+  --font-md: 1.25rem;
+  --font-sm: 1rem;
 }
 
 * {
-  text-decoration: none;
-  list-style: none;
+  box-sizing: border-box; 
+  /* migliora gestione di padding e border */
   margin: 0;
   padding: 0;
+  list-style: none;
+  text-decoration: none;
 }
 
 body,
 html {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  background-color: var(--custom-dark-teal);
+  /* centratura orizzontale */
+  background-color: var(--custom-teal);
   color: var(--custom-white);
-  width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  /* migliora stabilità dell’altezza su mobile */
+  width: 100%;
+  font-size: 16px;
+  /* base rem, utile per calcoli dinamici */
+  line-height: 1.6; /* spazio tra le righe */
+  font-family: sans-serif;
+  padding: var(--space-md);
+  /* padding adattabile */
 }
 
 .title {
+  color: var(--custom-orange);
   font-weight: 900;
-  font-size: 3rem;
-  padding: 50px;
+  font-size: var(--font-lg);
+  /* sostituito 2rem con clamp per adattività */
+  padding: var(--space-xl) var(--space-lg) var(--space-md);
+  /* padding dinamico */
+  text-shadow: 4px 4px 2px var(--custom-dark-teal);
+  width: 100%;
+  /* evita overflow e mantiene centratura */
+  display: flex;
+  justify-content: center;
 }
 
 .projects-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  width: 75vw;
-  height: 75vh;
-  gap: 35px;
-  padding: 50px;
-}
-
-.projects {
-  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 900px;
+  /* limite massimo per schermi grandi */
+  gap: var(--space-md); 
+  padding: var(--space-lg);
+  /* padding adattabile */
   flex-grow: 1;
 }
 
+.arrow {
+  color: var(--custom-white);
+  text-shadow: 2px 2px 2px var(--custom-dark-teal);
+  font-size: var(--font-sm);
+  /* gestito da variabile */
+}
 
 .btn {
   display: flex;
+  align-items: center;
+  justify-content: center;
   flex-grow: 1;
-
-  background-color: var(--custom-white);
+  box-shadow: 2px 2px var(--custom-dark-teal);
+  background-color: var(--custom-orange);
   color: var(--custom-dark-teal);
-  font-size: 20px;
-  font-weight: 100;
-  padding: 10px;
-  /* border: 1px solid var(--custom-white); */
-  border-radius: 10px;
-
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  font-size: var(--font-md);
+  /* font dinamico */
+  font-weight: 300;
+  padding: var(--space-sm) var(--space-md);
+  /* padding adattabile */
+  border-radius: var(--radius);
+  /* da 10px */
+  transition: background-color 0.1s ease, transform 0.3s ease;
+  width: 100%;
+  /* pulsanti pieni su mobile */
+  max-width: 500px;
+  /* limite larghezza su desktop */
 }
 
 .btn:hover {
-  background-color: var(--custom-dark-orange);
-  transform: scale(1.1);
+  color: var(--custom-white);
+  transform: scale(1.05);
+  /* effetto più fluido */
 }
 
 .btn:active {
-  transform: scale(0.90); /* Effetto di pressione */
-  background-color: var(--custom-teal);
+  transform: scale(0.95);
+  /* pressione più realistica */
+  background-color: var(--custom-dark-orange);
   color: var(--custom-white);
 }
 
-#dev,
+#resume,
 #qa,
-.social-networks {
+#dev,
+#social-networks {
   display: flex;
-  flex-direction: row;
-  gap: 5px;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+  /* sostituito 5px */
+  width: 100%;
+  /* per contenere meglio su mobile */
 }
 
-.social-networks .btn {
-  background-color: var(--custom-white);
-  color: var(--custom-teal);
-  font-weight: 600;
+#resume {
+  margin-bottom: var(--space-lg);
+  /* da 50px */
 }
 
-.social-networks .btn:active {
-    background-color: var(--custom-teal);
-    color: var(--custom-white);
+#social-networks {
+  margin-top: var(--space-lg);
+  /* da 50px */
+}
+
+
+/* Media query per gestire visualizzazione mobile */
+
+@media (max-width: 600px) {
+  .title {
+    font-size: 1rem;
+    /* restringe titolo su mobile */
+    justify-content: center;
+    /* centra il testo */
+    text-align: center;
+    /* centra visivamente */
+  }
+
+  .projects-container {
+    align-items: flex-start;
+    /* centra tutto */
+    padding: var(--space-md);
+    /* padding più stretto su schermi piccoli */
+  }
+
+  .btn {
+    font-size: var(--font-sm);
+    /* font più piccolo */
+    padding: var(--space-sm);
+    /* meno padding */
+  }
+
+  #resume,
+  #qa,
+  #dev,
+  #social-networks {
+    flex-direction: column;
+    align-items: flex-start;
+    /* da row a column su mobile */
+    gap: var(--space-sm);
+    /* riduce spazio tra elementi */
+  }
 }
