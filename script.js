@@ -5,8 +5,8 @@ const qaReposObj = {
 }
 
 const devReposObj = {
-    "dev-landingPage": "https://github.com/catellic/landing-page",
-    "dev-RockPaperScissors": "https://github.com/catellic/scissor-paper-rock"
+    "dev-landingPage": "https://catellic.github.io/landing-page/",
+    "dev-scissorsPaperRock": "https://catellic.github.io/scissor-paper-rock/"
 }
 
 const resumeObj = {
