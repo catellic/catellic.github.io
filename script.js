@@ -22,7 +22,7 @@ const socialObj = {
 const qaWrapper = document.querySelector(`#qa`),
     devWrapper = document.querySelector(`#dev`),
     resumeWrapper = document.querySelector(`#resume`),
-    socialNetworksWrapper = document.querySelector(`#social-networks`)
+    footerWrapper = document.querySelector(`.footer`)
 
 // little util
 
@@ -54,7 +54,9 @@ function buildRepoCard(repoName, repoUrl) {
 }
 
 function buildRepoContainer(wrapper, object) {
-    buildArrow(wrapper);
+    if (wrapper !== footerWrapper) {
+        buildArrow(wrapper);
+    }
 
     for (let key in object) {
         const repo = buildRepoCard(key, object[key]);
@@ -89,7 +91,7 @@ function createDiv(divName) {
 buildRepoContainer(qaWrapper, qaReposObj)
 buildRepoContainer(devWrapper, devReposObj)
 buildRepoContainer(resumeWrapper, resumeObj)
-buildRepoContainer(socialNetworksWrapper, socialObj)
+buildRepoContainer(footerWrapper, socialObj)
 
 
 
